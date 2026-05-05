@@ -1,41 +1,87 @@
 package mariopartyv1;
-import java.util.ArrayList;
+
+
 import java.util.Scanner;
 
-public class Partida
+
+public class Partida 
 {
+
     public static void main(String[] args) 
     {
-       Jugador j1 = new Jugador();
-       System.out.println("Nombre del jugador 1: "+j1.getNombre());
-       
-       System.out.println("Monedas del jugador 1: "+j1.getMonedas());
-       System.out.println("Estrellas del jugador 1: "+j1.getEstrellas());
+        Scanner sc = new Scanner(System.in);
+ //==========================================CREAR TABLERO===============================================================
+        int rondas=0;
+        Tablero tablero = new Tablero();
+        tablero.crearTablero();
+ //==========================================CREAR JUGADORES=============================================================
+        int cantJug=0;
+        System.out.println("Cuantos jugadores vais a ser?");
+        cantJug = sc.nextInt();
+        sc.nextLine();
         
-       j1.alterEstrellas(4);
-       j1.alterMonedas(3);
-        
-       System.out.println("Monedas del jugador 1: "+j1.getMonedas());
-       System.out.println("Estrellas del jugador 1: "+j1.getEstrellas());
+          for(int i=0; i<cantJug; i++)
+        {   
+            Jugador j = new Jugador();
+        //  ==========NOMBRES JUGADORES=================
+            System.out.println("Dame el nombre dels Jugador "+(i+1));
+            String jNombre = sc.nextLine();
+            j.setNombre(jNombre);
+        //  =========COLOCAR JUGADORES EN TABLERO=======    
+            j.setTablero(tablero);
+            tablero.addJ(j);
+            tablero.colocarJugadores(); 
+        }
+//====================================VARIABLES PARA VER SIGUIENTES CASILLAS====================================================     
+        int respuesta=0;
+        int distancia=0;
+      
+// ==========================================BUCLE JUGABLE=======================================================================       
+ 
+       System.out.println("Listo! Cuantas rondas quereis jugar?");
+       rondas = sc.nextInt();
+       sc.nextLine();
        
-       j1.alterEstrellas(-5);
-       j1.alterMonedas(-53);
-       
-       System.out.println("Monedas del jugador 1: "+j1.getMonedas());
-       System.out.println("Estrellas del jugador 1: "+j1.getEstrellas());
-       
-       Casilla c1 = new Casilla("c1");
-       System.out.println("Nombre de la primera casilla: "+c1.getNombre());
-       
-       Casilla c2 = new Casilla("c2");  
-       c1.setSiguiente(c2);
-       
-       System.out.println("Casilla despues de c1: "+c1.getSiguiente());
-       
-       j1.setCasilla(c1);
-       System.out.println("Jugador 1 se encuentra en la casilla: "+j1.getCasilla());
-       j1.avanzar();
-       System.out.println("Ahora J1 esta en la casilla: "+j1.getCasilla());
+       int turno =0;
+       for(int i=0; i<rondas;i++)
+       {     
+           if (turno== tablero.totJugadores.size())
+           {
+              turno = 0;
+           }
+           Jugador jugadorActual =  tablero.totJugadores.get(turno);
+           
+           System.out.println("RONDA "+i);
+           System.out.println("Celdas delante del Jugador:");
+           System.out.println("1 para mostrar hasta la siguente casilla estrella || 0 para mostrar hasta una distancia introducida por ti");
+           respuesta = sc.nextInt();  
+           if(respuesta==1){jugadorActual.mostrarHastaEstrella();}  
+           if(respuesta==0)
+           {
+             distancia = sc.nextInt();
+             sc.nextLine();
+             jugadorActual.mostrarSiguientes(distancia);
+           }
+           System.out.println("Es el turno de "+jugadorActual.getNombre());
+           while(respuesta != 1)
+           {
+            System.out.println(jugadorActual.getNombre()+" pulsa 1 para tirar el dado.");
+            respuesta = sc.nextInt();
+           }
+           int pasos = jugadorActual.tirarDado();
+           System.out.println("Tiraste: "+pasos); 
+           System.out.println("Celda actual del Jugador: "+jugadorActual.getCasilla().getNombre());
+           System.out.println("Juagdor "+jugadorActual.getNombre()+ " avanza:"+pasos);
+           jugadorActual.avanzar(pasos);
+           System.out.println();
+            
+           System.out.println("Juagdor "+jugadorActual.getNombre()+ " llega a casilla: "+jugadorActual.getCasilla().getNombre());
+           jugadorActual.getCasilla().accion(jugadorActual);
+           System.out.println();
+           
+           System.out.println("Se ha acabado tu turno "+jugadorActual.getNombre()+" estas son las casillas que te quedan delante:");
+         
+          turno++;       
+       }         
     }
-    
 }
