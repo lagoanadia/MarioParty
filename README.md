@@ -40,24 +40,7 @@ El tablero contiene **bifurcaciones** que permiten al jugador elegir su camino, 
 - **Encapsulación:** los atributos de `Jugador` y `Casilla` son privados y se acceden a través de getters y setters.
 - **Composición:** un `Tablero` contiene listas de `Casilla` y `Jugador`; cada `Jugador` referencia a su `Tablero` y a su `Casilla` actual.
 - **Operador `instanceof`:** se utiliza para detectar casillas estrella durante el avance y aplicar reglas especiales.
-- **Colecciones dinámicas:** uso de `ArrayList` para gestionar el conjunto de casillas, jugadores y caminos posibles desde una bifurcación.
-
-## 📁 Estructura del proyecto
-MarioPartyV1/
-├── src/
-│   └── mariopartyv1/
-│       ├── Partida.java          # Clase principal con el método main y el bucle de juego
-│       ├── Tablero.java          # Construcción del tablero y gestión de jugadores
-│       ├── Jugador.java          # Atributos del jugador y lógica de movimiento
-│       ├── Casilla.java          # Clase abstracta base de las casillas
-│       ├── CasillaAzul.java      # Casilla que otorga monedas
-│       ├── CasillaRoja.java      # Casilla que resta monedas
-│       ├── CasillaVerde.java     # Casilla con efecto aleatorio
-│       └── CasillaEstrella.java  # Casilla que canjea monedas por estrellas
-├── nbproject/                    # Configuración del proyecto NetBeans
-├── build.xml                     # Script de construcción Ant
-└── manifest.mf                   # Manifiesto del JAR
-## ▶️ Ejecución
+- **Colecciones dinámicas:** uso de `ArrayList` para gestionar el conjunto de casillas, jugadores y caminos posibles desde una bifurcación. 
 
 ### Requisitos previos
 
