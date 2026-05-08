@@ -28,7 +28,6 @@ public abstract class Casilla
 
     public Casilla getSiguiente()
     {
-     
         //por ahora no implemento bifurcaciones pero dejo el arraylist listo.
         return siguientes.get(0);
     }
